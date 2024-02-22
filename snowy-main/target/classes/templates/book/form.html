@@ -1,0 +1,154 @@
+<form id="addOrUpdateForm" lay-filter="addOrUpdateForm" class="layui-form model-form">
+
+    <input name="id" type="hidden"/>
+
+
+    <div class="layui-form-item">
+        <label class="layui-form-label layui-form-required">名称</label>
+        <div class="layui-input-block">
+            <input name="title" class="layui-input" placeholder="请输入名称" lay-verType="tips" lay-verify="required" required/>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label layui-form-required">作者</label>
+            <div class="layui-input-block">
+                <input name="author" class="layui-input" placeholder="请输入作者" lay-verType="tips" lay-verify="required" required/>
+            </div>
+        </div>
+        <div class="layui-inline">
+                <label class="layui-form-label layui-form-required">译者</label>
+                <div class="layui-input-block">
+                    <input name="translator" class="layui-input" placeholder="请输入译者" lay-verType="tips" width="200px"/>
+                </div>
+        </div>
+    </div>
+
+
+
+    <div class="layui-form-item">
+        <label class="layui-form-label layui-form-required">出版社</label>
+        <div class="layui-input-block">
+            <input name="publishingHouse" class="layui-input" placeholder="请输入出版社" lay-verType="tips"/>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label layui-form-required">出版年</label>
+            <div class="layui-input-block">
+                <input name="publicationYear" class="layui-input" placeholder="请输入出版年" lay-verType="tips"/>
+            </div>
+        </div>
+        <div class="layui-inline">
+            <label class="layui-form-label layui-form-required">出品方</label>
+            <div class="layui-input-block">
+                <input name="producer" class="layui-input" placeholder="请输入出品方" lay-verType="tips" width="180px"/>
+            </div>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label layui-form-required">页数</label>
+        <div class="layui-input-block">
+            <input name="page" class="layui-input" placeholder="请输入页数" lay-verType="tips"/>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label layui-form-required">定价</label>
+        <div class="layui-input-block">
+            <input name="pricing" class="layui-input" placeholder="请输入定价" lay-verType="tips"/>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label layui-form-required">装帧</label>
+        <div class="layui-input-block">
+            <input name="binding" class="layui-input" placeholder="请输入装帧" lay-verType="tips"/>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label layui-form-required">ISBN</label>
+        <div class="layui-input-block">
+            <input name="isbn" class="layui-input" placeholder="请输入ISBN" lay-verType="tips"/>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label layui-form-required">副标题</label>
+        <div class="layui-input-block">
+            <input name="subtitle" class="layui-input" placeholder="请输入副标题" lay-verType="tips"/>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label layui-form-required">原作名</label>
+        <div class="layui-input-block">
+            <input name="originalTitle" class="layui-input" placeholder="请输入原作名" lay-verType="tips"/>
+        </div>
+    </div>
+
+
+
+    <div class="layui-form-item">
+        <label class="layui-form-label layui-form-required">封面</label>
+        <div class="layui-input-block">
+            <input name="cover" class="layui-input" placeholder="请输入封面" lay-verType="tips"/>
+        </div>
+    </div>
+
+
+
+
+
+    <div class="layui-form-item layui-form-text">
+        <label class="layui-form-label ">简介</label>
+        <div class="layui-input-block">
+            <textarea name="content" placeholder="请输入简介" class="layui-textarea"/>
+        </div>
+    </div>
+
+    <div class="layui-form-item text-right">
+        <button class="layui-btn layui-btn-primary" type="button" ew-event="closeDialog">取消</button>
+        <button class="layui-btn" lay-filter="formSubmitBtn" lay-submit>保存</button>
+    </div>
+</form>
+
+<script>
+    layui.use(['layer', 'form', 'admin', 'xnUtil', 'xmSelect', 'laydate'], function () {
+        var $ = layui.jquery;
+        var layer = layui.layer;
+        var form = layui.form;
+        var admin = layui.admin;
+        var xnUtil = layui.xnUtil;
+        var xmSelect = layui.xmSelect;
+        var laydate = layui.laydate;
+
+
+        var editData = admin.getLayerData('#addOrUpdateForm').data;
+        if(editData !== null && editData !== undefined) {
+            form.val('addOrUpdateForm', editData);
+        }
+
+        /**
+         * 表单提交事件
+         */
+        form.on('submit(formSubmitBtn)', function (data) {
+            layer.load(2);
+
+            var url = editData ? getProjectUrl() + 'book/edit' : getProjectUrl() + 'book/add';
+            admin.req(url, JSON.stringify(data.field), function(res){
+                layer.msg(res.message, {icon: 1, time: 1000}, function () {
+                    admin.putLayerData('formOk', true, '#addOrUpdateForm');
+                    admin.closeDialog('#addOrUpdateForm');
+                });
+            }, 'post');
+            return false;
+        });
+    });
+</script>
+</body>
+</html>

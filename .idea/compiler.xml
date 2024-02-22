@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="snowy-core" />
+        <module name="snowy-gen" />
+        <module name="snowy-main" />
+        <module name="snowy-system" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="snowy-base" target="1.8" />
+      <module name="snowy-core" target="1.8" />
+      <module name="snowy-gen" target="1.8" />
+      <module name="snowy-layui" target="1.8" />
+      <module name="snowy-main" target="1.8" />
+      <module name="snowy-system" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="snowy-core" options="-parameters" />
+      <module name="snowy-gen" options="-parameters" />
+      <module name="snowy-main" options="-parameters" />
+      <module name="snowy-system" options="-parameters" />
+    </option>
+  </component>
+</project>
